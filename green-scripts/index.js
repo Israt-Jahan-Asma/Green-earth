@@ -89,19 +89,19 @@ const displayPlantCard = (plants) => {
 
         const plantCard =document.createElement('div')
         plantCard.innerHTML= `
-        <div class="card bg-base-100 w-82 shadow-sm p-4 rounded-lg">
+        <div class="card bg-base-100 md:w-82 w-92 shadow-sm p-4 rounded-lg">
   <figure>
     <img class="h-60 object-cover w-full rounded-md"
       src="${plant.image}" />
   </figure>
   <div class="card-body py-2 px-0">
-    <h2 class="card-title"> ${plant.name} </h2>
+    <h2 onclick="loadPlantDetail(${plant.id})" class="card-title cursor-pointer"> ${plant.name} </h2>
 
     <p class="font-light text-[#1F2937]"> ${plant.description}</p>
 
     <div class="card-actions justify-between items-center">
-      <a onclick="loadPlantDetail(${plant.id})" class="btn  bg-[#DCFCE7] border-0 shadow-none rounded-4xl text-[#15803D] font-normal">${plant.category} </a>
-      <div class="font-semibold ">${plant.price}</div>
+      <a  onclick="loadPlantDetail(${plant.id})" class="btn  bg-[#DCFCE7] border-0 shadow-none rounded-4xl text-[#15803D] font-normal py-1 ">${plant.category} </a>
+      <div class="font-semibold ">৳${plant.price}</div>
     </div>
     <a onclick="addToCart('${plant.name}', '${plant.price}')" class="btn mt-2 bg-[#15803D] border-0 shadow-none rounded-4xl text-white font-normal">Add to Cart</a>
   </div>
@@ -113,6 +113,18 @@ const displayPlantCard = (plants) => {
     });
  manageSpinner(false)
 }
+const showToast = (message) => {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.remove('hidden');
+
+    // Hide after 2 seconds
+    setTimeout(() => {
+        toast.classList.add('hidden');
+    }, 2000);
+}
+
+
 // add to cart function
 let cart = [];
 const addToCart = (plantName, price) => {
@@ -124,7 +136,8 @@ if(existingItem){
 }
     
     renderCart();
-    }
+     showToast(`${plantName} added to cart ✅`);
+}
 
 const renderCart = () => {
     const cartList = document.getElementById('cart-list');

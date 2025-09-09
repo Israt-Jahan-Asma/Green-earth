@@ -68,12 +68,12 @@
     <div class="absolute inset-0 bg-[#CFF0DC]"></div>
 
     <!-- Left image -->
-    <div class="absolute left-0 md:top-0 top-28 h-full w-1/2 bg-[url('/assets/hero-leaf1.png')] bg-left bg-contain bg-no-repeat">
+    <div class="absolute left-0 lg:top-0 md:top-13 top-28 h-full w-1/2 bg-[url('/assets/hero-leaf1.png')] bg-left bg-contain bg-no-repeat">
     </div>
 
     <!-- Right image -->
     <div
-      class="absolute right-0 md:top-0 top-28  h-full w-1/2 bg-[url('/assets/hero-leaf2.png')] bg-right bg-contain bg-no-repeat">
+      class="absolute right-0 lg:top-0 md:top-13 top-28  h-full w-1/2 bg-[url('/assets/hero-leaf2.png')] bg-right bg-contain bg-no-repeat">
     </div>
 
     <!-- Content -->
@@ -91,7 +91,7 @@
 
 
   <!-- Choose Your Trees -->
-<section class="w-10/12 mx-auto py-24">
+<section class="lg:w-10/12 w-11/12 mx-auto py-24">
 
     <h2 class="text-center font-semibold text-[32px]">Choose Your Trees</h2>
 
@@ -101,9 +101,9 @@
   </section>
 
   <!-- main container -->
-  <div class="md:grid grid-cols-12 gap-6 mt-6">
+  <div class="grid md:grid-cols-12 gap-6 mt-6">
 <!-- left div  -->
- <aside  class="col-span-2 p-4 mb-5 md:mb-0">
+ <aside  class="col-span-12 md:col-span-3 lg:col-span-2 p-4 mb-5 md:mb-0">
  <h3 class="font-semibold text-[20px]">Categories</h3>
 <div id="plant-container">
 
@@ -111,17 +111,16 @@
  </aside>
  
  <!-- cart container  -->
-  <div class="col-span-8">
+  <div class="col-span-12 md:col-span-6 lg:col-span-8">
 
-<div id="plant-card-container" class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 items-start justify-center"> 
-
+<div id="plant-card-container" class="grid sm:grid-cols-2 lg:grid-cols-3 md:grid-cols-1 gap-6 items-start justify-center"> 
 
 
 </div>
 
   </div>
   <!-- right div  -->
-   <aside class="col-span-2 bg-white p-4 mt-5 md:mt-0">
+   <aside class="col-span-12 md:col-span-3 lg:col-span-2 bg-white p-4 mt-5 md:mt-0">
 <h3 class="font-semibold text-[20px]">Your Cart</h3>
 <div id="cart-list">
 
@@ -133,7 +132,7 @@
 
   <!-- About the Campaign -->
 
-  <section class="md:w-7/12 mx-auto items-center space-y-7 py-24.5">
+  <section class="lg:w-7/12 md:w-11/12 w-10/12 mx-auto items-center space-y-7 py-24.5">
     <h2 class="text-center font-semibold text-[32px]">About the Campaign</h2>
     <div class="md:flex justify-between items-center gap-8 space-y-7 md:space-y-0 px-4 md:px-0">
       <div>
@@ -155,10 +154,10 @@
   <!-- Our Impact -->
 
   <section class="bg-[#CFF0DC] py-24 ">
-    <div class="w-10/12 mx-auto space-y-10">
+    <div class="lg:w-10/12 w-11/12 mx-auto space-y-10">
       <h2 class="text-center font-semibold text-[32px]">Our Impact</h2>
 
-    <div class="grid md:grid-cols-3 gap-12 justify-items-center">
+    <div class="grid md:grid-cols-3 lg:gap-12 gap-6 justify-items-center">
 
       <div class="card bg-base-100 w-full shadow-sm text-center Geist">
         <div class="card-body ">
@@ -190,7 +189,7 @@
 
 <section class="bg-[#166534] py-24 space-y-3 px-4 md:px-0">
   <h2 class="text-center font-semibold text-[32px] text-white"> Plant a Tree Today </h2> 
-  <div class="md:w-4/12 mx-auto grid grid-cols-1 space-y-3 bg-[#15803D] p-10 rounded-xl">
+  <div class="lg:w-4/12 w-7/12 mx-auto grid grid-cols-1 space-y-3 bg-[#15803D] p-10 rounded-xl">
    <input type="text" class="input w-full" placeholder="Your Name" />
    <input type="email" class="input w-full" placeholder="Your Email Address" />
    <select class="select w-full">
@@ -212,7 +211,6 @@
 
 
 <!-- Open the modal using ID.showModal() method -->
-<!-- <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
 
 <dialog id="plant_modal" class="modal modal-bottom sm:modal-middle">
   <div class="modal-box">
@@ -221,12 +219,13 @@
     </div>
     <div class="modal-action">
       <form method="dialog">
-        <!-- if there is a button in form, it will close the modal -->
         <button class="btn">Close</button>
       </form>
     </div>
   </div>
 </dialog>
+<!-- Add this somewhere in your HTML -->
+<div id="toast" class="hidden fixed top-5 right-5 bg-green-600 text-white py-2 px-4 rounded-lg shadow-lg"></div>
   <!-- script cdn -->
   <script src="green-scripts/index.js"></script>
 
