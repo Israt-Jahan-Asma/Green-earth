@@ -55,9 +55,8 @@ const loadPlantDetail= async (id)=>{
     displayPlantDetails(details.plants);
     
 }
-
+//modal details
 const displayPlantDetails = (plant)=>{
-console.log(plant);
 const detailsBox = document.getElementById('details-container')
 detailsBox.innerHTML = `
 
@@ -80,6 +79,7 @@ detailsBox.innerHTML = `
 `
 document.getElementById('plant_modal').showModal()
 }
+//main card section
 const displayPlantCard = (plants) => {
     const PlantCardContainer = document.getElementById('plant-card-container');
     PlantCardContainer.innerHTML=''
@@ -103,15 +103,60 @@ const displayPlantCard = (plants) => {
       <a onclick="loadPlantDetail(${plant.id})" class="btn  bg-[#DCFCE7] border-0 shadow-none rounded-4xl text-[#15803D] font-normal">${plant.category} </a>
       <div class="font-semibold ">${plant.price}</div>
     </div>
-    <a class="btn mt-2 bg-[#15803D] border-0 shadow-none rounded-4xl text-white font-normal">Plant a Tree</a>
+    <a onclick="addToCart('${plant.name}', '${plant.price}')" class="btn mt-2 bg-[#15803D] border-0 shadow-none rounded-4xl text-white font-normal">Add to Cart</a>
   </div>
 </div>
         
         `
         PlantCardContainer.append(plantCard)
+        
     });
  manageSpinner(false)
 }
+// add to cart function
+let cart = [];
+const addToCart = (plantName, price) => {
+const existingItem = cart.find(item=> item.name === plantName)
+if(existingItem){
+    existingItem.quantity += 1;
+} else{
+    cart.push({ name: plantName, price: Number(price), quantity: 1  });
+}
+    
+    renderCart();
+    }
+
+const renderCart = () => {
+    const cartList = document.getElementById('cart-list');
+    cartList.innerHTML=""
+
+    let total = 0;
+    cart.forEach((item,index )=> {
+         total += item.price * item.quantity;
+    const cartItems = document.createElement('div');
+
+    cartItems.innerHTML = `<div class="flex justify-between items-center bg-[#F0FDF4] py-2 px-3 rounded-lg mt-2">
+        <div> 
+        <p class="font-semibold pb-2">${item.name} </p>
+        <p class="text-[#8C8C8C]">৳${item.price} x ${item.quantity} </p>
+        </div>
+        
+        <button onclick="removeFromCart(${index})" class="text-[#8C8C8C] "><i class="fa-solid fa-xmark cursor-pointer"></i></button>
+    </div>`
+    
+    cartList.appendChild(cartItems);
+});
+const totalDiv = document.createElement('div');
+    totalDiv.className = 'font-semibold mt-4 text-right';
+    totalDiv.innerHTML = `<div class="flex justify-between border-t-1 border-[#1F293710] pt-2"> <p> Total:</p> ৳${total}</div>`;
+    cartList.appendChild(totalDiv);
+}
+// remove item from cart by index
+const removeFromCart = (index) => {
+    cart.splice(index, 1); // remove 1 item at index
+    renderCart();
+}
+
 const displayCategory = (categories) => {
     const plantContainer = document.getElementById('plant-container');
     plantContainer.innerHTML = ''
