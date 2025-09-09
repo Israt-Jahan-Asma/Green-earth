@@ -37,7 +37,37 @@ const loadPlantCardContainer = (id) => {
            
         })
 }
+const loadPlantDetail= async (id)=>{
+    const url = `https://openapi.programming-hero.com/api/plant/${id}`
+    const res= await fetch(url)
+    const details= await res.json()
+    displayPlantDetails(details.plants);
+    
+}
+const displayPlantDetails = (plant)=>{
+console.log(plant);
+const detailsBox = document.getElementById('details-container')
+detailsBox.innerHTML = `
 
+<div class="card bg-base-100 ">
+
+  <figure>
+    <img class="h-60 object-cover w-full rounded-md"
+      src="${plant.image}" />
+  </figure>
+  <div class="card-body py-2 px-0">
+   <h2 class="card-title"> ${plant.name} </h2>
+
+    <p class="font-normal pt-2 text-[#1F2937]"> <b> Description:</b> ${plant.description} </p>
+<a class="font-normal"> <b> Category: </b>${plant.category} </a>
+ <div class="font-semibold ">  <b> Price: </b>${plant.price}</div>
+
+  </div>
+</div>
+
+`
+document.getElementById('plant_modal').showModal()
+}
 const displayPlantCard = (plants) => {
     const PlantCardContainer = document.getElementById('plant-card-container');
     PlantCardContainer.innerHTML=''
@@ -54,9 +84,11 @@ const displayPlantCard = (plants) => {
   </figure>
   <div class="card-body py-2 px-0">
     <h2 class="card-title"> ${plant.name} </h2>
+
     <p class="font-light text-[#1F2937]"> ${plant.description}</p>
+
     <div class="card-actions justify-between items-center">
-      <a class="btn bg-[#DCFCE7] border-0 shadow-none rounded-4xl text-[#15803D] font-normal">${plant.category} </a>
+      <a onclick="loadPlantDetail(${plant.id})" class="btn  bg-[#DCFCE7] border-0 shadow-none rounded-4xl text-[#15803D] font-normal">${plant.category} </a>
       <div class="font-semibold ">${plant.price}</div>
     </div>
     <a class="btn mt-2 bg-[#15803D] border-0 shadow-none rounded-4xl text-white font-normal">Plant a Tree</a>
