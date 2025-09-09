@@ -5,14 +5,36 @@ const loadContainer = () => {
         .then(res => res.json())
         .then(data => displayCategory(data.categories))
 }
+const loadAllPlants = () => {
+    fetch('https://openapi.programming-hero.com/api/plants')
+        .then(res => res.json())
+        .then(data => {
+             removeActive();
+             const allBtn =document.getElementById('all-plants');
+             if(allBtn) allBtn.classList.add('active')
+            displayPlantCard(data.plants)
+            
+        })
+}
+const removeActive = ()=>{
+    const plantButtons = document.querySelectorAll('.plant-btn')
+    
+    plantButtons.forEach(btn=>btn.classList.remove('active', 'bg-[#15803D]', 'text-white'))
+    
+}
 const loadPlantCardContainer = (id) => {
 
     const url = `https://openapi.programming-hero.com/api/category/${id}`;
     fetch(url)
         .then(res => res.json())
         .then(data => {
+            removeActive();
+            const clickBtn = document.getElementById(`button-category-${id}`)
+            clickBtn.classList.add('active')
+            
         displayPlantCard(data.plants)
 
+           
         })
 }
 
@@ -49,16 +71,25 @@ const displayPlantCard = (plants) => {
 const displayCategory = (categories) => {
     const plantContainer = document.getElementById('plant-container');
     plantContainer.innerHTML = ''
+const allBtn = document.createElement('button')
+    allBtn.id = 'all-plants'
+    allBtn.className = 'p-2 w-full text-left my-2 rounded-md hover:bg-[#15803D] hover:text-white plant-btn'
+    allBtn.textContent = 'All Plants'
+    allBtn.onclick = () => loadAllPlants()
+    plantContainer.append(allBtn)
 
     for (let category of categories) {
 
         const btnDiv = document.createElement('div')
         btnDiv.innerHTML = `
-     <button onclick=loadPlantCardContainer('${category.id}') class="p-2 border border-red-600 w-full text-left my-2 rounded-md hover:bg-[#15803D] hover:text-white">${category.category_name} </button>
+
+     <button id="button-category-${category.id}" onclick=loadPlantCardContainer('${category.id}') class="p-2  w-full text-left my-2 rounded-md hover:bg-[#15803D] hover:text-white plant-btn">${category.category_name} </button>
     
     `
         plantContainer.append(btnDiv)
     }
 
 }
+
 loadContainer()
+loadAllPlants()
