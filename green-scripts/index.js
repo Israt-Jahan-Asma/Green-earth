@@ -6,6 +6,7 @@ const loadContainer = () => {
         .then(data => displayCategory(data.categories))
 }
 const loadAllPlants = () => {
+    manageSpinner(true)
     fetch('https://openapi.programming-hero.com/api/plants')
         .then(res => res.json())
         .then(data => {
@@ -23,7 +24,7 @@ const removeActive = ()=>{
     
 }
 const loadPlantCardContainer = (id) => {
-
+ manageSpinner(true);
     const url = `https://openapi.programming-hero.com/api/category/${id}`;
     fetch(url)
         .then(res => res.json())
@@ -37,6 +38,16 @@ const loadPlantCardContainer = (id) => {
            
         })
 }
+const manageSpinner=(status)=>{
+if(status==true){
+    document.getElementById('spinner').classList.remove('hidden')
+    document.getElementById('plant-card-container').classList.add('hidden')
+} else{
+    document.getElementById('plant-card-container').classList.remove('hidden')
+    document.getElementById('spinner').classList.add('hidden')
+}
+}
+
 const loadPlantDetail= async (id)=>{
     const url = `https://openapi.programming-hero.com/api/plant/${id}`
     const res= await fetch(url)
@@ -44,6 +55,7 @@ const loadPlantDetail= async (id)=>{
     displayPlantDetails(details.plants);
     
 }
+
 const displayPlantDetails = (plant)=>{
 console.log(plant);
 const detailsBox = document.getElementById('details-container')
@@ -98,7 +110,7 @@ const displayPlantCard = (plants) => {
         `
         PlantCardContainer.append(plantCard)
     });
-
+ manageSpinner(false)
 }
 const displayCategory = (categories) => {
     const plantContainer = document.getElementById('plant-container');
